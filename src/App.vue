@@ -4,7 +4,7 @@
             <div class="col-xs-12">
                 <h1>Add Blog Post</h1>
 
-                <form>
+                <form @submit.prevent="isSubmitted=true">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" class="form-control" id="title" @input="post.title= $event.target.value">
@@ -44,11 +44,13 @@
                         <option v-for="series in formData.series" :value="series">{{series}}</option>
                         </select>
                     </div>
+
+                    <input type="submit" class="btn btn-primary" value="Publish">
                 </form>
 
                 <hr>
 
-                <table class="table table-striped">
+                <table class="table table-striped" v-if="isSubmitted">
                     <thead>
                         <tr>
                             <td class="col-xs-6"><strong>Field</strong></td>
@@ -95,6 +97,7 @@
     export default {
         data() {
             return {
+                isSubmitted: false,
                 post: {
                     title: '',
                     content: '',
